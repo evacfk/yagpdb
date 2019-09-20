@@ -1,11 +1,20 @@
 FROM golang:stretch as builder
 
+<<<<<<< HEAD
 # Uncomment during development
 COPY . /appbuild/yagpdb
 
 WORKDIR /appbuild/yagpdb/cmd/yagpdb
 
 RUN CGO_ENABLED=0 GOOS=linux go build -v
+=======
+WORKDIR $GOPATH/src
+
+# Uncomment during development
+COPY . github.com/jonas747/yagpdb
+
+RUN CGO_ENABLED=0 GOOS=linux go get -v github.com/jonas747/yagpdb/cmd/yagpdb
+>>>>>>> 4b76dd1c... economy
 
 FROM alpine:latest
 
@@ -21,7 +30,12 @@ RUN apk --no-cache add ca-certificates
 RUN apk --no-cache add ffmpeg
 
 # Handle templates for plugins automatically
+<<<<<<< HEAD
 COPY --from=builder /appbuild/yagpdb/*/assets/*.html templates/plugins/
+=======
+COPY --from=builder /go/src/github.com/jonas747/yagpdb/*/assets/*.html templates/plugins/
+COPY --from=builder /go/src/github.com/evacfk/yageconomy/assets/*.html templates/plugins/
+>>>>>>> 4b76dd1c... economy
 
 COPY --from=builder /appbuild/yagpdb/cmd/yagpdb/templates templates/
 COPY --from=builder /appbuild/yagpdb/cmd/yagpdb/posts posts/
@@ -36,4 +50,8 @@ COPY --from=builder /appbuild/yagpdb/cmd/yagpdb .
 ENV extra_flags ""
 
 # `exec` allows us to receive shutdown signals.
+<<<<<<< HEAD
 CMD exec /app/yagpdb -all -pa $extra_flags
+=======
+CMD exec /app/yagpdb -all -pa $extra_flags -backgroundworkers
+>>>>>>> 4b76dd1c... economy
