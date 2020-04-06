@@ -6,7 +6,6 @@ require (
 	emperror.dev/errors v0.4.3
 	github.com/AYLIEN/aylien_textapi_go v0.6.0
 	github.com/DATA-DOG/go-sqlmock v1.3.3 // indirect
-	github.com/DataDog/datadog-go v2.2.0+incompatible
 	github.com/NYTimes/gziphandler v1.1.1
 	github.com/PuerkitoBio/goquery v1.5.0
 	github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d // indirect
@@ -32,14 +31,13 @@ require (
 	github.com/jonas747/dca v0.0.0-20190317094138-10e959e9d3e8
 	github.com/jonas747/dcmd v1.2.0
 	github.com/jonas747/dice v0.0.0-20170619144252-7735f6ee7b69
-	github.com/jonas747/discordgo v1.4.0
+	github.com/jonas747/discordgo v1.4.3
 	github.com/jonas747/dshardorchestrator/v2 v2.0.1-0.20200203181047-f9a62c68f600
-	github.com/jonas747/dstate v1.0.5
+	github.com/jonas747/dstate v1.0.6
 	github.com/jonas747/dutil v0.0.3
 	github.com/jonas747/go-reddit v0.1.2
 	github.com/jonas747/jdshardmanager v1.0.1
 	github.com/jonas747/ogg v0.0.0-20161220051205-b4f6f4cf3757 // indirect
-	github.com/jonas747/retryableredis v1.0.2
 	github.com/jonas747/template v1.1.2
 	github.com/justinian/dice v0.0.0-20170728002755-6a18b51d929c // indirect
 	github.com/karlseguin/ccache v2.0.3+incompatible
