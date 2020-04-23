@@ -43,12 +43,12 @@ func (p *Plugin) handleMsgUpdate(evt *eventsystem.EventData) {
 
 // called on new messages and edits
 func (p *Plugin) checkMessage(msg *discordgo.Message) bool {
-	if !bot.IsNormalUserMessage(msg) || msg.GuildID == 0 {
+	if !bot.IsNormalUserMessage(msg) {
 		return false
 	}
 
-	if !featureflags.GuildHasFlagOrLogError(msg.GuildID, featureFlagEnabled) {
-		return false
+	if !featureflags.GuildHasFlagOrLogError(msg.GuildID, featureFlagEnabled) || msg.GuildID == 0 {
+		return true
 	}
 
 	cs := bot.State.Channel(true, msg.ChannelID)
