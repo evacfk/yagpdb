@@ -1,27 +1,28 @@
 FROM golang:stretch as builder
 
-<<<<<<< HEAD
+WORKDIR /appbuild
+
+
 # Uncomment during development
 COPY . /appbuild/yagpdb
+
+RUN git clone https://github.com/evacfk/yageconomy
 
 WORKDIR /appbuild/yagpdb/cmd/yagpdb
 
 RUN CGO_ENABLED=0 GOOS=linux go build -v
-=======
-WORKDIR $GOPATH/src
 
-# Uncomment during development
-COPY . github.com/jonas747/yagpdb
-
-RUN CGO_ENABLED=0 GOOS=linux go get -v github.com/jonas747/yagpdb/cmd/yagpdb
->>>>>>> 4b76dd1c... economy
+#RUN CGO_ENABLED=0 GOOS=linux go get -v \
+#  github.com/jonas747/yagpdb/cmd/yagpdb
 
 FROM alpine:latest
 
 WORKDIR /app
+# /app/cert looks like where it's expecting certificates. maybe where /letsencrypt should point to
 VOLUME /app/soundboard \
   /app/cert
 EXPOSE 80 443
+#EXPOSE 5000 5001
 
 # We need the X.509 certificates for client TLS to work.
 RUN apk --no-cache add ca-certificates
@@ -30,16 +31,13 @@ RUN apk --no-cache add ca-certificates
 RUN apk --no-cache add ffmpeg
 
 # Handle templates for plugins automatically
-<<<<<<< HEAD
 COPY --from=builder /appbuild/yagpdb/*/assets/*.html templates/plugins/
-=======
-COPY --from=builder /go/src/github.com/jonas747/yagpdb/*/assets/*.html templates/plugins/
-COPY --from=builder /go/src/github.com/evacfk/yageconomy/assets/*.html templates/plugins/
->>>>>>> 4b76dd1c... economy
 
 COPY --from=builder /appbuild/yagpdb/cmd/yagpdb/templates templates/
 COPY --from=builder /appbuild/yagpdb/cmd/yagpdb/posts posts/
 COPY --from=builder /appbuild/yagpdb/cmd/yagpdb/static static/
+
+COPY --from=builder /appbuild/yageconomy/assets/*.html templates/plugins/
 
 COPY --from=builder /appbuild/yagpdb/cmd/yagpdb .
 
@@ -47,11 +45,7 @@ COPY --from=builder /appbuild/yagpdb/cmd/yagpdb .
 # Set "-exthttps=true" if using a TLS-enabled proxy such as
 # jrcs/letsencrypt-nginx-proxy-companion
 # Set "-https=false" do disable https
-ENV extra_flags ""
+ENV extra_flags "-feeds=reddit,twitter"
 
 # `exec` allows us to receive shutdown signals.
-<<<<<<< HEAD
-CMD exec /app/yagpdb -all -pa $extra_flags
-=======
 CMD exec /app/yagpdb -all -pa $extra_flags -backgroundworkers
->>>>>>> 4b76dd1c... economy

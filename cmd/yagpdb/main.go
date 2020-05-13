@@ -42,6 +42,7 @@ import (
 	"github.com/jonas747/yagpdb/twitter"
 	"github.com/jonas747/yagpdb/verification"
 	"github.com/jonas747/yagpdb/youtube"
+	"github.com/evacfk/yageconomy"
 	// External plugins
 )
 
@@ -87,6 +88,7 @@ func main() {
 	internalapi.RegisterPlugin()
 	prom.RegisterPlugin()
 	featureflags.RegisterPlugin()
+	yageconomy.RegisterPlugin()
 
 	run.Run()
 }

@@ -2,6 +2,8 @@ module github.com/jonas747/yagpdb
 
 go 1.13
 
+replace github.com/ericlagergren/decimal => github.com/ericlagergren/decimal v0.0.0-20181231230500-73749d4874d5
+
 require (
 	emperror.dev/errors v0.4.3
 	github.com/AYLIEN/aylien_textapi_go v0.6.0
